@@ -36,8 +36,8 @@ int main(){
     exibirMatriz(city);
     printf("Qnt Hab = %d\n", qntHabitantes(city));
     
-    //passarUmAno(city);
-    //exibirMatriz(city);
+    passarUmAno(city);
+    exibirMatriz(city);
 
     return 0;
 }//END main
@@ -105,16 +105,15 @@ unsigned short qntHabitantes(unsigned short matrix[][C_MATRIZ]){
 
 void passarUmAno(unsigned short matrix[][C_MATRIZ]){
     /* IMCOMPLETA */
-
-    CursorMatriz cursor; cursor.linha = 0; cursor.coluna = 0;
+    
     CursorMatriz aux;
 
     for(size_t i = 0; i < qntHabitantes(matrix); ){
         
         for(size_t j = 0; j < L_MATRIZ; j++){
             for(size_t k = 0; k < C_MATRIZ; k++){
-                if(matrix[cursor.linha][cursor.coluna] != 0){
-                 aux.linha = cursor.linha; aux.coluna = cursor.coluna;
+                if(matrix[j][k] != 0){
+                 aux.linha = j; aux.coluna = k;
                     while(matrix[aux.linha][aux.coluna] != 0){
                         //aux.linha++;
                         aux.coluna++;
@@ -126,6 +125,7 @@ void passarUmAno(unsigned short matrix[][C_MATRIZ]){
 
                     }
                     i++;
+                    cout << aux.linha << " " << aux.coluna << endl;
                 }
 
             }
