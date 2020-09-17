@@ -37,12 +37,16 @@ int main(){
 
 
 void incializarMatriz(unsigned short matrix[][C_MATRIZ]){
+    /* Esta função inicializa a matriz com todos os índices zerados */
+
     for(size_t i = 0; i < L_MATRIZ; i++)
         for(size_t j = 0; j < C_MATRIZ; j++)
             matrix[i][j] = 0;
 }//END function
 
 void exibirMatriz(unsigned short matrix[][C_MATRIZ]){
+    /* Esta função percorre a matriz exibindo os valores armazenados em cada índice */
+
     for(size_t i = 0; i < L_MATRIZ; i++){
         for(size_t j = 0; j < C_MATRIZ; j++)
             cout << matrix[i][j] << " " ;
@@ -52,10 +56,11 @@ void exibirMatriz(unsigned short matrix[][C_MATRIZ]){
 }//END function
 
 void popularMatriz(unsigned short matrix[][C_MATRIZ], unsigned short qnt, unsigned short tpPessoa){
+    /* Esta função popula a matriz a partir do tipo da pessoa e a quantidade que irá ser inserida na matrix */
+
     unsigned short lMatriz, cMatriz;
 
-    size_t i = 0;
-    while(i < qnt){
+    for(size_t i = 0; i < qnt; ){
         if(checkPosMatrizVazia(matrix, lMatriz, cMatriz)){
             matrix[lMatriz][cMatriz] = tpPessoa;
 
@@ -66,15 +71,20 @@ void popularMatriz(unsigned short matrix[][C_MATRIZ], unsigned short qnt, unsign
 }//END function
 
 unsigned short gerarPosMatriz(){ 
+    /* Esta função gera um número aleatório entre 0 e 9 */
     return rand() % 10;
 }//END function
 
 bool checkPosMatrizVazia(unsigned short matrix[][C_MATRIZ], unsigned short lMatrix, unsigned short cMatrix){
+    /* Esta função avalia se a matriz, no índice passado está por parâmetro, está com o valor zerado */
+
     if(matrix[lMatrix][cMatrix] == 0) return true;
     else return false;
 }//END function
 
 unsigned short qntHabitantes(unsigned short matrix[][C_MATRIZ]){
+    /* Esta função percorre a matriz e retorna a quantidade de habitantes na matriz */
+
     unsigned short qntHab = 0;
 
     for(size_t i = 0; i < L_MATRIZ; i++)
