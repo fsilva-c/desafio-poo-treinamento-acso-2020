@@ -104,6 +104,8 @@ unsigned short qntHabitantes(unsigned short matrix[][C_MATRIZ]){
 }//END function
 
 void passarUmAno(unsigned short matrix[][C_MATRIZ]){
+    /* IMCOMPLETA */
+
     CursorMatriz cursor; cursor.linha = 0; cursor.coluna = 0;
     CursorMatriz aux;
 
