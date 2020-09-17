@@ -37,7 +37,6 @@ int main(){
     printf("Qnt Hab = %d\n", qntHabitantes(city));
     
     //passarUmAno(city);
-
     //exibirMatriz(city);
 
     return 0;
@@ -70,7 +69,7 @@ void popularMatriz(unsigned short matrix[][C_MATRIZ], unsigned short qnt, unsign
 
     for(size_t i = 0; i < qnt; ){
         lMatriz = gerarPosMatriz(), cMatriz = gerarPosMatriz();
-        
+
         if(checkPosMatrizVazia(matrix, lMatriz, cMatriz)){
             matrix[lMatriz][cMatriz] = tpPessoa;
 
@@ -110,7 +109,7 @@ void passarUmAno(unsigned short matrix[][C_MATRIZ]){
 
     for(size_t i = 0; i < qntHabitantes(matrix); ){
         
-        for(size_t j = 0; j < L_MATRIZ; j++)
+        for(size_t j = 0; j < L_MATRIZ; j++){
             for(size_t k = 0; k < C_MATRIZ; k++){
                 if(matrix[cursor.linha][cursor.coluna] != 0){
                  aux.linha = cursor.linha; aux.coluna = cursor.coluna;
@@ -126,11 +125,8 @@ void passarUmAno(unsigned short matrix[][C_MATRIZ]){
                     }
                     i++;
                 }
+
             }
-
-
-        cout << aux.linha << " " << aux.coluna << endl;
-        for(size_t o = aux.coluna; o > 0; o--)
-            matrix[aux.linha][aux.coluna] = matrix[aux.linha][aux.coluna - 1];
+        }
     }
 }//END function
