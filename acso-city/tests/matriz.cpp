@@ -8,12 +8,17 @@ using namespace std;
 
 enum TpPessoas{ hSaudavel = 1, mSaudavel, hInfectado, mInfectada, hVacinado, mVacinada };
 
+typedef struct cursor{
+    unsigned short linha, coluna;
+}CursorMatriz;
+
 void incializarMatriz(unsigned short matrix[][C_MATRIZ]);
 void exibirMatriz(unsigned short matrix[][C_MATRIZ]);
 void popularMatriz(unsigned short matrix[][C_MATRIZ], unsigned short qnt, unsigned short tpPessoa);
 unsigned short gerarPosMatriz();
 bool checkPosMatrizVazia(unsigned short matrix[][C_MATRIZ], unsigned short lMatrix, unsigned short cMatrix);
 unsigned short qntHabitantes(unsigned short matrix[][C_MATRIZ]);
+void passarUmAno(unsigned short matrix[][C_MATRIZ]);
 
 
 int main(){
@@ -31,6 +36,9 @@ int main(){
     exibirMatriz(city);
     printf("Qnt Hab = %d\n", qntHabitantes(city));
     
+    //passarUmAno(city);
+
+    //exibirMatriz(city);
 
     return 0;
 }//END main
@@ -61,12 +69,13 @@ void popularMatriz(unsigned short matrix[][C_MATRIZ], unsigned short qnt, unsign
     unsigned short lMatriz, cMatriz;
 
     for(size_t i = 0; i < qnt; ){
+        lMatriz = gerarPosMatriz(), cMatriz = gerarPosMatriz();
+        
         if(checkPosMatrizVazia(matrix, lMatriz, cMatriz)){
             matrix[lMatriz][cMatriz] = tpPessoa;
 
             i++;
         }
-        lMatriz = gerarPosMatriz(), cMatriz = gerarPosMatriz();
     }
 }//END function
 
@@ -93,4 +102,35 @@ unsigned short qntHabitantes(unsigned short matrix[][C_MATRIZ]){
                 qntHab++;
 
     return qntHab;
+}//END function
+
+void passarUmAno(unsigned short matrix[][C_MATRIZ]){
+    CursorMatriz cursor; cursor.linha = 0; cursor.coluna = 0;
+    CursorMatriz aux;
+
+    for(size_t i = 0; i < qntHabitantes(matrix); ){
+        
+        for(size_t j = 0; j < L_MATRIZ; j++)
+            for(size_t k = 0; k < C_MATRIZ; k++){
+                if(matrix[cursor.linha][cursor.coluna] != 0){
+                 aux.linha = cursor.linha; aux.coluna = cursor.coluna;
+                    while(matrix[aux.linha][aux.coluna] != 0){
+                        //aux.linha++;
+                        aux.coluna++;
+                        if(aux.coluna > C_MATRIZ){ 
+                            aux.coluna = 0; 
+                            aux.linha++;
+                            if(aux.linha > L_MATRIZ) aux.linha = 0;
+                        }
+
+                    }
+                    i++;
+                }
+            }
+
+
+        cout << aux.linha << " " << aux.coluna << endl;
+        for(size_t o = aux.coluna; o > 0; o--)
+            matrix[aux.linha][aux.coluna] = matrix[aux.linha][aux.coluna - 1];
+    }
 }//END function
