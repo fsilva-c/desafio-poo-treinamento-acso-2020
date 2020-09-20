@@ -18,7 +18,7 @@ void popularMatriz(unsigned short matrix[][C_MATRIZ], unsigned short qnt, unsign
 unsigned short gerarPosMatriz();
 bool checkPosMatrizVazia(unsigned short matrix[][C_MATRIZ], unsigned short lMatrix, unsigned short cMatrix);
 unsigned short qntHabitantes(unsigned short matrix[][C_MATRIZ]);
-void passarUmAno(unsigned short matrix[][C_MATRIZ]);
+void passarUmAno(unsigned short matrix[][C_MATRIZ], unsigned short l, unsigned short c);
 
 /* g++ -o matriz.o matriz.cpp && ./matriz.o */ 
 
@@ -36,8 +36,8 @@ int main(){
 
     exibirMatriz(city);
     printf("Qnt Hab = %d\n", qntHabitantes(city));
-    
-    passarUmAno(city);
+    passarUmAno(city, 0, 0);
+
     exibirMatriz(city);
     printf("Qnt Hab = %d\n", qntHabitantes(city));
 
@@ -105,34 +105,75 @@ unsigned short qntHabitantes(unsigned short matrix[][C_MATRIZ]){
     return qntHab;
 }//END function
 
+void passarUmAno(unsigned short matrix[][C_MATRIZ], unsigned short l, unsigned short c){
+    //percorreu toma matriz
+    if((l == L_MATRIZ - 1) && (c == C_MATRIZ - 1)) return;
+
+    c++;
+    if(c == C_MATRIZ - 1){
+        c = 0;
+        l++;
+        if(l == L_MATRIZ -1)
+            l++;
+    }
+
+    matrix[l][c + 1] = matrix[l][c];
+    passarUmAno(matrix, l, c);
+}
+
+/*
 void passarUmAno(unsigned short matrix[][C_MATRIZ]){
-    /* INCOMPLETA */
+    //IMCOMPLETA
     
     CursorMatriz aux;
-    unsigned short cont = 0;
+    unsigned short matrixAux[L_MATRIZ][C_MATRIZ]; incializarMatriz(matrixAux);
+
+    //for(size_t i = 0; i < qntHabitantes(matrix); ){
         
     for(size_t i = 0; i < L_MATRIZ; i++){
         for(size_t j = 0; j < C_MATRIZ; j++){
-            cont = 0;
-            if(matrix[i][j] != 0){
+            if((matrix[i][j] != 0) && (matrix[i][j + 1] == 0) && (j != C_MATRIZ - 1)){
+                //valor com espaço ao lado
+                //cout << i << " " << j << endl;
+                matrixAux[i][j + 1] = matrix[i][j];
+            }
+            else if((matrix[L_MATRIZ - 1][C_MATRIZ - 1] != 0) && (matrix[0][0] == 0)){
+                //valor da ponta [0][0]
+                matrixAux[0][0] = matrix[L_MATRIZ - 1][C_MATRIZ - 1];
+            }
+            else if(((j == C_MATRIZ - 1) && (matrix[i][C_MATRIZ - 1] != 0)) || ((matrix[i][j] != 0) && (matrix[i][j + 1] != 0))){
+                //caso número na coluna - 1 e números alocados consecultivamente
+                //printf("[%zu] [%zu]\n", i, j);
                 aux.linha = i; aux.coluna = j;
                 while(matrix[aux.linha][aux.coluna] != 0){
-                    cont++;
                     aux.coluna++;
-                    if(aux.coluna >= C_MATRIZ){
+                    if(aux.coluna == C_MATRIZ - 1){
                         aux.coluna = 0;
                         aux.linha++;
-                        if(aux.linha >= L_MATRIZ) 
+                        if(aux.linha == L_MATRIZ - 1)
                             aux.linha = 0;
                     }
-                    if(cont == 1){
-                        cout << "cont = " << cont << " ";
-                        cout << "lin = " << aux.linha << " col = " << aux.coluna << endl;
-                    }
                 }
+                
+                for(size_t a = aux.coluna; a > 0; a--){
+                    matrixAux[aux.linha][a] = matrixAux[aux.linha][a - 1];
+                    if(matrix[aux.linha][a] == 0) break;
+                }
+                printf("{%i} {%i}\n", aux.linha, aux.coluna);
             }
         }
     }
 
-    cout << endl;
+    exibirMatriz(matrixAux);
+    printf("Qnt Hab = %d\n", qntHabitantes(matrixAux));
+    //}
 }//END function
+*/
+
+/*
+    if(coluna >= C_MATRIZ){
+        coluna = 0;
+        linha++;
+        if(linha >= L_MATRIZ) linha = 0;
+    }
+*/
