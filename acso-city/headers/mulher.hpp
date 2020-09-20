@@ -2,6 +2,7 @@
 #define _MULHER_HPP_
 
 #include "pessoa.hpp"
+#include <string>
 
 class Mulher: public Pessoa
 {
@@ -9,12 +10,13 @@ class Mulher: public Pessoa
         bool gestacao;
 
     public :
+        Pessoa engravidar(Pessoa &amante);
 
         Mulher();
         Mulher(const Mulher &__mulher);
-        Mulher(string &__nome, unsigned &__idade, Saude &__saude, bool &__gestacao);
+        Mulher(string __nome, unsigned __idade, Saude __saude, bool __gestacao=false);
 
-        Pessoa engravidar(Pessoa &amante);
+        bool getGestacao();
 
 };
 

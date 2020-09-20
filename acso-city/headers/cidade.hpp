@@ -15,6 +15,16 @@ class Cidade
 
     public:
         bool vacinar(Pessoa &__pessoa);
+        void projecao(Data &__data);
+
+        unsigned n_mulheres_sadias();
+        unsigned n_mulheres_infectadas();
+        unsigned n_homens_sadios();
+        unsigned n_homens_infectados();
+        unsigned n_pessoas_sadias();
+        unsigned n_pessoas_infectadas();
+
+        void print();
 
         Cidade();
         Cidade(const Cidade &__cidade);

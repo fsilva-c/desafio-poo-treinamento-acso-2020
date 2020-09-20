@@ -2,6 +2,7 @@
 #define _HOMEM_HPP_
 
 #include "pessoa.hpp"
+#include <string>
 
 class Homem : public Pessoa
 {
@@ -11,7 +12,7 @@ class Homem : public Pessoa
         
         Homem();
         Homem(const Homem &__homem);
-        Homem(string &__nome, unsigned &__idade, Saude &__saude);
+        Homem(std::string __nome, unsigned __idade, Saude __saude);
 
 };
 

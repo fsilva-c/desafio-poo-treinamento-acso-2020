@@ -11,10 +11,11 @@ class Saude
         Data data;
 
     public:
+        bool infectar(Data &__data);
 
         Saude();
         Saude(const Saude &__saude);
-        Saude(bool &__doente, bool &__vacinado, Data data);
+        Saude(bool __doente, bool __vacinado, Data __data = Data());
         
         void setDoente(bool &__doente);
         void setVacinado(bool &__vacinado);

@@ -6,17 +6,23 @@
 
 class Pessoa
 {
-    private :
-        string nome;
+    protected :
+        std::string nome;
         unsigned idade;
         Saude saude;
 
     public :
-        bool morrer(Data &__data);
+        void morrer(Data &__data);
 
         Pessoa();
         Pessoa(const Pessoa &__pessoa);
-        Pessoa(string &__nome, unsigned &__idade, Saude &__saude);
+        Pessoa(std::string __nome, unsigned __idade, Saude __saude);
+
+        void setIdade(const unsigned &__idade);
+        void setSaude(const Saude &__saude);
+        std::string getNome();
+        unsigned getIdade();
+        Saude getSaude();
 
 
 };
