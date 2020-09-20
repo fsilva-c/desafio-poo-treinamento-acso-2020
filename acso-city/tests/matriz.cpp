@@ -20,6 +20,7 @@ bool checkPosMatrizVazia(unsigned short matrix[][C_MATRIZ], unsigned short lMatr
 unsigned short qntHabitantes(unsigned short matrix[][C_MATRIZ]);
 void passarUmAno(unsigned short matrix[][C_MATRIZ]);
 
+/* g++ -o matriz.o matriz.cpp && ./matriz.o */ 
 
 int main(){
     srand(time(NULL));
@@ -38,6 +39,7 @@ int main(){
     
     passarUmAno(city);
     exibirMatriz(city);
+    printf("Qnt Hab = %d\n", qntHabitantes(city));
 
     return 0;
 }//END main
@@ -104,31 +106,33 @@ unsigned short qntHabitantes(unsigned short matrix[][C_MATRIZ]){
 }//END function
 
 void passarUmAno(unsigned short matrix[][C_MATRIZ]){
-    /* IMCOMPLETA */
+    /* INCOMPLETA */
     
     CursorMatriz aux;
-
-    for(size_t i = 0; i < qntHabitantes(matrix); ){
+    unsigned short cont = 0;
         
-        for(size_t j = 0; j < L_MATRIZ; j++){
-            for(size_t k = 0; k < C_MATRIZ; k++){
-                if(matrix[j][k] != 0){
-                 aux.linha = j; aux.coluna = k;
-                    while(matrix[aux.linha][aux.coluna] != 0){
-                        //aux.linha++;
-                        aux.coluna++;
-                        if(aux.coluna > C_MATRIZ){ 
-                            aux.coluna = 0; 
-                            aux.linha++;
-                            if(aux.linha > L_MATRIZ) aux.linha = 0;
-                        }
-
+    for(size_t i = 0; i < L_MATRIZ; i++){
+        for(size_t j = 0; j < C_MATRIZ; j++){
+            cont = 0;
+            if(matrix[i][j] != 0){
+                aux.linha = i; aux.coluna = j;
+                while(matrix[aux.linha][aux.coluna] != 0){
+                    cont++;
+                    aux.coluna++;
+                    if(aux.coluna >= C_MATRIZ){
+                        aux.coluna = 0;
+                        aux.linha++;
+                        if(aux.linha >= L_MATRIZ) 
+                            aux.linha = 0;
                     }
-                    i++;
-                    cout << aux.linha << " " << aux.coluna << endl;
+                    if(cont == 1){
+                        cout << "cont = " << cont << " ";
+                        cout << "lin = " << aux.linha << " col = " << aux.coluna << endl;
+                    }
                 }
-
             }
         }
     }
+
+    cout << endl;
 }//END function
