@@ -1,5 +1,5 @@
-#ifndef _DATA_H_
-#define _DATA_H_
+#ifndef _DATA_HPP_
+#define _DATA_HPP_
 
 #include <iostream>
 using namespace std;
