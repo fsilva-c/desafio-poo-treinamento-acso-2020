@@ -106,19 +106,29 @@ unsigned short qntHabitantes(unsigned short matrix[][C_MATRIZ]){
 }//END function
 
 void passarUmAno(unsigned short matrix[][C_MATRIZ], unsigned short l, unsigned short c){
-    //percorreu toma matriz
+    //percorreu toda matriz; fim da recursão
     if((l == L_MATRIZ - 1) && (c == C_MATRIZ - 1)) return;
 
-    c++;
-    if(c == C_MATRIZ - 1){
-        c = 0;
-        l++;
-        if(l == L_MATRIZ -1)
-            l++;
+    if((matrix[l][c] != 0) && (matrix[l][c + 1] == 0)){
+        matrix[l][c + 1] = matrix[l][c];
+        matrix[l][c] = 0;
+        
+        cout << "chevrolet" << endl;
     }
-
-    matrix[l][c + 1] = matrix[l][c];
+    else{
+        c++;
+        if(c == C_MATRIZ - 1){
+            c = 0;
+            l++;
+            if(l == L_MATRIZ -1)
+                l = 0;
+        }
+    }
+    
     passarUmAno(matrix, l, c);
+    
+    cout << l << " " << c << endl;
+    
 }
 
 /*
