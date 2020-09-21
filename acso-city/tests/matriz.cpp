@@ -187,3 +187,23 @@ void passarUmAno(unsigned short matrix[][C_MATRIZ]){
         if(linha >= L_MATRIZ) linha = 0;
     }
 */
+
+bool pontosCardeais(Cep pos){
+    if(pos.linha == 0 && pos.coluna == 0){
+        //quina superior esquerda
+        if((matrix[pos.linha][pos.coluna + 1] == Homem) || (matrix[pos.linha + 1][pos.coluna]) == Homem)
+            return true;
+    }else if(pos.linha == 0 && pos.coluna == C_MATRIZ - 1){
+        //quina superior direita
+        if((matrix[pos.linha][pos.coluna - 1] == Homem) || (matrix[pos.linha + 1][pos.coluna]) == Homem)
+            return true;
+    }else if((pos.linha == L_MATRIZ - 1) && (pos.coluna == 0)){
+        //quina inferior esquerda
+        if((matrix[pos.linha + 1][pos.coluna] == Homem) || (matrix[pos.linha][pos.coluna + 1]) == Homem)
+            return true;
+    }else if((pos.linha == L_MATRIZ - 1) && (pos.coluna == C_MATRIZ - 1)){
+        //quina inferior direita
+        if((matrix[pos.linha][pos.coluna - 1] == Homem) || (matrix[pos.linha -1][pos.coluna]) == Homem)
+            return true;
+    }
+}
