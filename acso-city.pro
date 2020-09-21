@@ -4,7 +4,7 @@ bindir = acso-city/binaries/
 objdir = acso-city/objects/
 
 QMAKE_CXXFLAGS += -I$${includedir}
-QMAKE_CXXFLAGS += -std=c++11 -Wall -Wextra -pedantic
+QMAKE_CXXFLAGS += -std=c++17 -Wall -Wextra -pedantic
 
 SOURCES = $${srcdir}cidade.cpp \
         $${srcdir}data.cpp \
@@ -25,4 +25,4 @@ TARGET = $${bindir}desafio
 
 OBJECTS_DIR = $${objdir}
 
-CONFIG += c++11
+CONFIG += c++17

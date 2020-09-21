@@ -8,13 +8,14 @@
 #include <typeinfo>
 #include <time.h>
 
-bool Cidade::addPessoa(Pessoa &__pessoa)
+bool Cidade::addPessoa(Pessoa *__pessoa)
 {
     if(populacao_size == 40)    return false;
 
     Cep endereco = gerarCep();
-    mapa[endereco.x][endereco.y] = &__pessoa;
+    mapa[endereco.x][endereco.y] = __pessoa;
     populacao_size++;
+
     return true;
 }
 
@@ -22,18 +23,20 @@ void Cidade::popular(unsigned &__m_sadias, unsigned &__m_infectadas, unsigned &_
 {
     srand(time(NULL));
 
-    Pessoa *cidadao;
     //Mulheres Sadias
     for(unsigned i =0; i < __m_sadias; i++)
     {
+        
         std::string nome = "Maria";
         unsigned idade = unsigned(rand() %20);
         Saude saude = Saude(false,false);
 
-        cidadao = new Mulher(nome,idade,saude);
-        addPessoa(*cidadao);
+        //cidadao = new Mulher(nome,idade,saude);
+        Mulher *cidada = new Mulher(nome, idade, saude);
+        addPessoa(cidada);
     }
 
+    
     //Mulheres Infectadas
     for(unsigned i =0; i < __m_infectadas; i++)
     {
@@ -41,8 +44,8 @@ void Cidade::popular(unsigned &__m_sadias, unsigned &__m_infectadas, unsigned &_
         unsigned idade = unsigned(rand() %20);
         Saude saude = Saude(true,false,data);
 
-        cidadao = new Mulher(nome,idade,saude); 
-        addPessoa(*cidadao); 
+        Mulher *cidada = new Mulher(nome, idade, saude);
+        addPessoa(cidada);
     }
 
     //Homens Sadios
@@ -52,8 +55,8 @@ void Cidade::popular(unsigned &__m_sadias, unsigned &__m_infectadas, unsigned &_
         unsigned idade = unsigned(rand() %20);
         Saude saude = Saude(false,false);
 
-        cidadao = new Homem(nome,idade,saude);
-        addPessoa(*cidadao);
+        Homem *cidadao = new Homem(nome, idade, saude);
+        addPessoa(cidadao);
     }
 
     //Homens Infectados
@@ -63,9 +66,10 @@ void Cidade::popular(unsigned &__m_sadias, unsigned &__m_infectadas, unsigned &_
         unsigned idade = unsigned(rand() %20);
         Saude saude = Saude(true,false,data);
 
-        cidadao = new Mulher(nome,idade,saude);
-        addPessoa(*cidadao);
+        Homem *cidadao = new Homem(nome, idade, saude);
+        addPessoa(cidadao);
     }
+    
 }
 Cep Cidade::gerarCep()
 {
@@ -133,10 +137,7 @@ unsigned Cidade::n_mulheres_sadias()
         for(unsigned column=0; column < N_COLUNAS; column++)
         {   
             if(mapa[line][column] != NULL && typeid(*mapa[line][column]) == typeid(Mulher)){
-                //Pessoa habitante = *mapa[line][column];
-                //occurrences += typeid(habitante) == typeid(Mulher) && !(habitante.getSaude().getDoente()) ? 1 : 0;
                 occurrences += !(mapa[line][column]->getSaude().getDoente()) ? 1 : 0;
-                cout << "chevrolet ";
             }
         }
     }
@@ -150,9 +151,8 @@ unsigned Cidade::n_mulheres_infectadas()
     {
         for(unsigned column=0; column < N_COLUNAS; column++)
         {
-            if(mapa[line][column] != NULL){
-                Pessoa habitante = (*mapa[line][column]);
-                occurrences +=  (typeid(habitante) == typeid(Mulher) && habitante.getSaude().getDoente()) ? 1 : 0;
+            if(mapa[line][column] != NULL && typeid(*mapa[line][column]) == typeid(Mulher)){
+                occurrences += (mapa[line][column]->getSaude().getDoente()) ? 1 : 0;
             }
         }
     }
@@ -166,8 +166,8 @@ unsigned Cidade::n_homens_sadios()
     {
         for(unsigned column=0; column < N_COLUNAS; column++)
         {
-            Pessoa habitante = (*mapa[line][column]);
-            occurrences +=  (typeid(habitante) == typeid(Homem) && !(habitante.getSaude().getDoente())) ? 1 : 0;
+            if(mapa[line][column] != NULL && typeid(*mapa[line][column]) == typeid(Homem))
+                occurrences += !(mapa[line][column]->getSaude().getDoente()) ? 1 : 0;
         }
     }
     return occurrences;
@@ -180,8 +180,8 @@ unsigned Cidade::n_homens_infectados()
     {
         for(unsigned column=0; column < N_COLUNAS; column++)
         {
-            Pessoa habitante = (*mapa[line][column]);
-            occurrences +=  (typeid(habitante) == typeid(Homem) && habitante.getSaude().getDoente()) ? 1 : 0;
+            if(mapa[line][column] != NULL && typeid(*mapa[line][column]) == typeid(Homem))
+                occurrences += (mapa[line][column]->getSaude().getDoente()) ? 1 : 0;
         }
     }
     return occurrences;

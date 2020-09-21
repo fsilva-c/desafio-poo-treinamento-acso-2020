@@ -3,6 +3,8 @@
 
 #include "data.hpp"
 #include "pessoa.hpp"
+#include "mulher.hpp"
+#include "homem.hpp"
 
 #define N_LINHAS 10
 #define N_COLUNAS 10
@@ -21,7 +23,7 @@ class Cidade
         Data data;
 
     public:
-        bool addPessoa(Pessoa &__pessoa);
+        bool addPessoa(Pessoa *__pessoa);
         void popular(unsigned &__m_sadias, unsigned &__m_infectadas, unsigned &__h_sadios, unsigned &__h_infectados);
         Cep gerarCep();
 

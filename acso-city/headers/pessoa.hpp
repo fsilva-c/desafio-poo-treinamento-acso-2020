@@ -14,7 +14,7 @@ class Pessoa
     public :
         void morrer(Data &__data);
         bool vacinar();
-        std::string toPrettyLine(); 
+        virtual std::string toPrettyLine(); 
 
         Pessoa();
         Pessoa(const Pessoa &__pessoa);

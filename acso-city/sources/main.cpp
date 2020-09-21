@@ -19,6 +19,11 @@ int main(){
     acso_city.popular(pop_1, pop_2, pop_1, pop_2);
 
     cout << acso_city.n_mulheres_sadias() << endl;
+    cout << acso_city.n_mulheres_infectadas() << endl;
+    cout << acso_city.n_homens_sadios() << endl;
+    cout << acso_city.n_homens_infectados() << endl;
+    cout << acso_city.n_pessoas_sadias() << endl;
+    cout << acso_city.n_pessoas_infectadas() << endl;
 
     acso_city.print();
 }//END main
