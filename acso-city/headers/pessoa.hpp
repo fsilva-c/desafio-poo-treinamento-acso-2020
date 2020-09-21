@@ -12,13 +12,17 @@ class Pessoa
         Saude saude;
 
     public :
-        void morrer(Data &__data);
+        bool morrer(Data &__data);
         bool vacinar();
-        virtual std::string toPrettyLine(); 
+        std::string toPrettyLine(); 
+
+        virtual Pessoa* engravidar(Pessoa &amante);
 
         Pessoa();
         Pessoa(const Pessoa &__pessoa);
         Pessoa(std::string __nome, unsigned __idade, Saude __saude);
+
+        virtual ~Pessoa();
 
         void setIdade(const unsigned &__idade);
         void setSaude(const Saude &__saude);

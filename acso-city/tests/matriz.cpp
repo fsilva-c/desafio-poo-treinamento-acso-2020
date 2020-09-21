@@ -18,9 +18,15 @@ void popularMatriz(unsigned short matrix[][C_MATRIZ], unsigned short qnt, unsign
 unsigned short gerarPosMatriz();
 bool checkPosMatrizVazia(unsigned short matrix[][C_MATRIZ], unsigned short lMatrix, unsigned short cMatrix);
 unsigned short qntHabitantes(unsigned short matrix[][C_MATRIZ]);
+<<<<<<< HEAD
 void passarUmAno(unsigned short matrix[][C_MATRIZ], unsigned short l, unsigned short c);
 
 /* g++ -o matriz.o matriz.cpp && ./matriz.o */ 
+=======
+void passarUmAno(unsigned short matrix[][C_MATRIZ]);
+
+/* g++ -o matriz.o matriz.cpp && ./matriz.o */
+>>>>>>> 88368d25e6e2e9af40a2ec5cd7bf895deb9f5aef
 
 int main(){
     srand(time(NULL));
@@ -36,10 +42,16 @@ int main(){
 
     exibirMatriz(city);
     printf("Qnt Hab = %d\n", qntHabitantes(city));
+<<<<<<< HEAD
     passarUmAno(city, 0, 0);
 
     exibirMatriz(city);
     printf("Qnt Hab = %d\n", qntHabitantes(city));
+=======
+    
+    passarUmAno(city);
+    exibirMatriz(city);
+>>>>>>> 88368d25e6e2e9af40a2ec5cd7bf895deb9f5aef
 
     return 0;
 }//END main
@@ -105,6 +117,7 @@ unsigned short qntHabitantes(unsigned short matrix[][C_MATRIZ]){
     return qntHab;
 }//END function
 
+<<<<<<< HEAD
 void passarUmAno(unsigned short matrix[][C_MATRIZ], unsigned short l, unsigned short c){
     //percorreu toda matriz; fim da recursão
     if((l == L_MATRIZ - 1) && (c == C_MATRIZ - 1)) return;
@@ -207,3 +220,59 @@ bool pontosCardeais(Cep pos){
             return true;
     }
 }
+=======
+void passarUmAno(unsigned short matrix[][C_MATRIZ]){
+    /* IMCOMPLETA */
+    
+    CursorMatriz aux;
+
+    //for(size_t i = 0; i < qntHabitantes(matrix); ){
+        
+        for(size_t j = 0; j < L_MATRIZ; j++){
+            for(size_t k = 0; k < C_MATRIZ; k++){
+                if(matrix[j][k] != 0)
+                    cout << j << " " << k << endl;
+            }
+        }
+    //}
+}//END function
+
+//Implementação prototipo de função para permutar membros da matriz
+void realocarPopulacao()
+{
+    struct Cep
+    {
+        unsigned x;
+        unsigned y;
+    };
+    
+    char *mapa[10][10];
+    unsigned N_LINHAS = 10;
+    unsigned N_COLUNAS = 10;
+    //busca por endereço vazio
+    Cep destino; //= gerarCep();
+    for(unsigned line=0; line < N_LINHAS; line++)
+    {
+        for(unsigned column = 0; column < N_COLUNAS; column++)
+        {
+            if(mapa[line][column] != NULL)
+            {
+                destino.x = line;
+                destino.y = column;
+            }
+        }
+    }
+    
+    Cep base = destino;
+    do{
+        unsigned line = base.x;
+        unsigned column = base.y;
+
+        base.y = (base.y +1) %10;
+        base.x = !(base.y) ? (base.x +1) %10 : base.x;
+
+
+    }while(base.x != destino.x && base.y != destino.y);
+    
+}
+>>>>>>> 88368d25e6e2e9af40a2ec5cd7bf895deb9f5aef

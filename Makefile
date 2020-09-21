@@ -373,8 +373,8 @@ compiler_clean: compiler_moc_predefs_clean
 
 ####### Compile
 
-acso-city/objects/cidade.o: acso-city/sources/cidade.cpp acso-city/headers/cidade.hpp \
-		acso-city/headers/data.hpp \
+acso-city/objects/cidade.o: acso-city/sources/cidade.cpp acso-city/headers/data.hpp \
+		acso-city/headers/cidade.hpp \
 		acso-city/headers/pessoa.hpp \
 		acso-city/headers/saude.hpp \
 		acso-city/headers/mulher.hpp \

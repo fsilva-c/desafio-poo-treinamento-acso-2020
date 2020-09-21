@@ -14,9 +14,12 @@ int main(){
 
     Cidade acso_city(date0);
 
-    unsigned a = 10, b = 1;
+    unsigned a = 10, b = 1, ano = 5;
     unsigned &pop_1 = a, &pop_2 = b;
+
     acso_city.popular(pop_1, pop_2, pop_1, pop_2);
+
+    acso_city.projecao(ano);
 
     cout << acso_city.n_mulheres_sadias() << endl;
     cout << acso_city.n_mulheres_infectadas() << endl;

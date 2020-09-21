@@ -2,14 +2,9 @@
 #include <string>
 #include <ostream>
 
-void Pessoa::morrer(Data &__data)
+bool Pessoa::morrer(Data &__data)
 {
-    if(idade >= 30 || (saude.getData().datacrp(__data) >= -730 && saude.getDoente()))
-    {
-        std::cout << "Objeto destruido";
-        //Pessoa::~Pessoa(); chamada destrutor...
-       
-    }
+    return (idade >= 30 || (saude.getData().datacrp(__data) >= -730 && saude.getDoente()));
 }
 
 bool Pessoa::vacinar()
@@ -27,6 +22,11 @@ std::string Pessoa::toPrettyLine()
     return '[' + std::to_string(idade) + "][" + (saude.getDoente() ? 'I' : 'S') + "][" + (saude.getVacinado() ? 'V' : 'N') + ']';
 }
 
+Pessoa* Pessoa::engravidar(Pessoa &amante)
+{
+    return NULL;
+}
+
 Pessoa::Pessoa()
 {
 
@@ -42,6 +42,10 @@ Pessoa::Pessoa(std::string __nome, unsigned __idade, Saude __saude)
     nome = __nome;
     idade = __idade;
     saude = __saude;
+}
+Pessoa::~Pessoa()
+{
+
 }
 
 void Pessoa::setIdade(const unsigned &__idade)

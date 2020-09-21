@@ -28,7 +28,10 @@ class Cidade
         Cep gerarCep();
 
         void projecao(unsigned &anos);
+        
         void rotinas();
+        bool incentivarReproducao(Cep pos);
+        void realocarPopulacao();
 
         unsigned n_mulheres_sadias();
         unsigned n_mulheres_infectadas();
