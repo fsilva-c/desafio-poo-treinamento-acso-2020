@@ -26,15 +26,15 @@ Saude::Saude(bool __doente, bool __vacinado, Data __data)
     data = __data;
 }
 
-void Saude::setDoente(bool &__doente)
+void Saude::setDoente(bool __doente)
 {
     doente = __doente;
 }
-void Saude::setVacinado(bool &__vacinado)
+void Saude::setVacinado(bool __vacinado)
 {
     vacinado = __vacinado;
 }
-void Saude::setData(bool &__data)
+void Saude::setData(bool __data)
 {
     data = __data;
 }

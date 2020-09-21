@@ -10,12 +10,17 @@
 class Cidade
 {
     private:
-        Pessoa mapa[N_LINHAS][N_COLUNAS];
+        unsigned populacao_size;
+        Pessoa *mapa[N_LINHAS][N_COLUNAS];
         Data data;
 
     public:
-        bool vacinar(Pessoa &__pessoa);
-        void projecao(Data &__data);
+        bool addPessoa(Pessoa &__pessoa);
+        void popular(unsigned &__m_sadias, unsigned &__m_infectadas, unsigned &__h_sadios, unsigned &__h_infectados);
+        Cep gerarCep();
+
+        void projecao(unsigned &anos);
+        void rotinas();
 
         unsigned n_mulheres_sadias();
         unsigned n_mulheres_infectadas();
@@ -30,7 +35,14 @@ class Cidade
         Cidade(const Cidade &__cidade);
         Cidade(Data &__data);
 
+        void setData(Data &__data);
+
 };
 
+struct Cep
+{
+    unsigned x;
+    unsigned y;
+};
 
 #endif

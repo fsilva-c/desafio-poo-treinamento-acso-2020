@@ -4,12 +4,27 @@
 
 void Pessoa::morrer(Data &__data)
 {
-    if(idade >= 30 || saude.getData().datacrp(__data) >= -730)
+    if(idade >= 30 || (saude.getData().datacrp(__data) >= -730 && saude.getDoente()))
     {
         std::cout << "Objeto destruido";
         Pessoa::~Pessoa();
        
     }
+}
+
+bool Pessoa::vacinar()
+{
+    if((idade <= 8 && idade >= 3) && !(saude.getDoente()))
+    {
+        saude.setVacinado(true);
+        return true;
+    }
+    return false;
+}
+
+std::string Pessoa::toPrettyLine()
+{
+    return '[' + std::to_string(idade) + "][" + (saude.getDoente() ? 'I' : 'S') + "][" + (saude.getVacinado() ? 'V' : 'N') + ']';
 }
 
 Pessoa::Pessoa()

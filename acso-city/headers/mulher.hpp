@@ -11,6 +11,7 @@ class Mulher: public Pessoa
 
     public :
         Pessoa engravidar(Pessoa &amante);
+        std::string toPrettyLine();
 
         Mulher();
         Mulher(const Mulher &__mulher);

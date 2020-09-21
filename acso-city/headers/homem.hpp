@@ -10,6 +10,8 @@ class Homem : public Pessoa
 
     public :
         
+        std::string toPrettyLine(); 
+
         Homem();
         Homem(const Homem &__homem);
         Homem(std::string __nome, unsigned __idade, Saude __saude);

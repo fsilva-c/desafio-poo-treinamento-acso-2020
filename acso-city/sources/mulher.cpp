@@ -25,6 +25,10 @@ Pessoa Mulher::engravidar(Pessoa &amante)
     return *bebe;
 }
 
+std::string Mulher::toPrettyLine()
+{
+    return "[M]" + Pessoa::toPrettyLine();
+} 
 
 Mulher::Mulher()
 {
