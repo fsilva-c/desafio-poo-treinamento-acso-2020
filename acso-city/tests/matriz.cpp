@@ -119,3 +119,42 @@ void passarUmAno(unsigned short matrix[][C_MATRIZ]){
         }
     //}
 }//END function
+
+//Implementação prototipo de função para permutar membros da matriz
+void realocarPopulacao()
+{
+    struct Cep
+    {
+        unsigned x;
+        unsigned y;
+    };
+    
+    char *mapa[10][10];
+    unsigned N_LINHAS = 10;
+    unsigned N_COLUNAS = 10;
+    //busca por endereço vazio
+    Cep destino; //= gerarCep();
+    for(unsigned line=0; line < N_LINHAS; line++)
+    {
+        for(unsigned column = 0; column < N_COLUNAS; column++)
+        {
+            if(mapa[line][column] != NULL)
+            {
+                destino.x = line;
+                destino.y = column;
+            }
+        }
+    }
+    
+    Cep base = destino;
+    do{
+        unsigned line = base.x;
+        unsigned column = base.y;
+
+        base.y = (base.y +1) %10;
+        base.x = !(base.y) ? (base.x +1) %10 : base.x;
+
+
+    }while(base.x != destino.x && base.y != destino.y);
+    
+}

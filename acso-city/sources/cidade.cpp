@@ -1,3 +1,4 @@
+#include "../headers/data.hpp"
 #include "../headers/cidade.hpp"
 #include "../headers/saude.hpp"
 #include "../headers/pessoa.hpp"
@@ -7,12 +8,12 @@
 #include <string>
 #include <typeinfo>
 
-bool Cidade::addPessoa(Pessoa &__pessoa)
+bool Cidade::addPessoa(Pessoa *__pessoa)
 {
-    if(populacao_size == 40)    return false;
+    if(populacao_size == 40 || __pessoa == NULL)    return false;
 
     Cep endereco = gerarCep();
-    mapa[endereco.x][endereco.y] = &__pessoa;
+    mapa[endereco.x][endereco.y] = __pessoa;
     populacao_size++;
     return true;
 }
@@ -28,7 +29,7 @@ void Cidade::popular(unsigned &__m_sadias, unsigned &__m_infectadas, unsigned &_
         Saude saude = Saude(false,false);
 
         cidadao = new Mulher(nome,idade,saude);
-        addPessoa(*cidadao);
+        addPessoa(cidadao);
     }
 
     //Mulheres Infectadas
@@ -39,7 +40,7 @@ void Cidade::popular(unsigned &__m_sadias, unsigned &__m_infectadas, unsigned &_
         Saude saude = Saude(true,false,data);
 
         cidadao = new Mulher(nome,idade,saude); 
-        addPessoa(*cidadao); 
+        addPessoa(cidadao); 
     }
 
     //Homens Sadios
@@ -50,7 +51,7 @@ void Cidade::popular(unsigned &__m_sadias, unsigned &__m_infectadas, unsigned &_
         Saude saude = Saude(false,false);
 
         cidadao = new Homem(nome,idade,saude);
-        addPessoa(*cidadao);
+        addPessoa(cidadao);
     }
 
     //Homens Infectados
@@ -61,7 +62,7 @@ void Cidade::popular(unsigned &__m_sadias, unsigned &__m_infectadas, unsigned &_
         Saude saude = Saude(true,false,data);
 
         cidadao = new Mulher(nome,idade,saude);
-        addPessoa(*cidadao);
+        addPessoa(cidadao);
     }
 }
 Cep Cidade::gerarCep()
@@ -104,19 +105,91 @@ void Cidade::projecao(unsigned &anos)
 
 void Cidade::rotinas()
 {
-    //Incentivar Reproducao
+    data.setAno(data.getAno()+1);
 
-    //Vacinar Populacao
+    for(unsigned line=0; line < N_LINHAS; line++)
+    {
+        for(unsigned column=0; column < N_COLUNAS; column++)
+        {
+            //Incentivar Reproducao
+            if(typeid((*mapa[line][column])) == typeid(Mulher))
+            {
+                Cep mulher_cep;
+                mulher_cep.x = line;
+                mulher_cep.y = column;
+                incentivarReproducao(mulher_cep);
+            }
+            //Vacinar Populacao
+            mapa[line][column]->vacinar();
 
-    //Verificar Obitos
+            //Verificar Obitos
+            if(mapa[line][column]->morrer(data))
+            {
+                delete mapa[line][column];
+                mapa[line][column] = NULL;
+                populacao_size--;
+            }
 
-    //Checar Contaminacao
+            //Checar Contaminacao
 
-    //Avancar Enderecos
+            //Envelhecer Cidadaos
+            mapa[line][column]->setIdade(mapa[line][column]->getIdade()+1);
+        }
+    }
 
-    //Envelhecer Cidadaos
+    //Realocar Populacao
+    realocarPopulacao();
+
 }
 
+bool Cidade::incentivarReproducao(Cep pos)
+{
+    Cep amante;
+    amante.x = pos.x;
+    amante.y = pos.y;
+    Pessoa *bebe = NULL;
+    if(amante.x +1 < N_LINHAS && mapa[amante.x+1][amante.y] != NULL)
+    {
+        bebe = mapa[pos.x][pos.y]->engravidar(*mapa[amante.x+1][amante.y]);
+
+    }else if(amante.x -1 < N_LINHAS && mapa[amante.x-1][amante.y] != NULL)
+    {
+        bebe = mapa[pos.x][pos.y]->engravidar(*mapa[amante.x-1][amante.y]);
+
+    }else if(amante.y +1 < N_COLUNAS && mapa[amante.x][amante.y+1] != NULL)
+    {
+        bebe = mapa[pos.x][pos.y]->engravidar(*mapa[amante.x][amante.y+1]);
+
+    }else if(amante.y +1 < N_COLUNAS && mapa[amante.x][amante.y-1] != NULL)
+    {
+        bebe = mapa[pos.x][pos.y]->engravidar(*mapa[amante.x][amante.y-1]);
+    }
+    addPessoa(bebe);
+    return (bebe != NULL);
+}
+
+void Cidade::realocarPopulacao()
+{
+    Cep origem;
+    origem.x = 0; origem.y = 0;
+    Cep destino;
+
+    Pessoa *last = mapa[N_LINHAS-1][N_COLUNAS-1];
+
+    do{
+
+        destino.x = origem.x;
+        destino.y = origem.y;
+
+        origem.y = (origem.y +1) %N_COLUNAS;
+        origem.x = origem.y == N_COLUNAS -1 ? (origem.x +1) %N_LINHAS : origem.x;
+
+        mapa[(N_LINHAS -1)- destino.x][(N_COLUNAS -1)- destino.y] = mapa[(N_LINHAS -1)- origem.x][(N_COLUNAS -1)- origem.y];
+
+    }while(origem.x || origem.y);
+    
+    mapa[0][0] = last;
+}
 
 
 unsigned Cidade::n_mulheres_sadias()

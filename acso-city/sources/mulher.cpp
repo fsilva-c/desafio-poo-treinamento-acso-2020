@@ -4,7 +4,7 @@
 #include <typeinfo>
 #include <string>
 
-Pessoa Mulher::engravidar(Pessoa &amante)
+Pessoa* Mulher::engravidar(Pessoa &amante)
 {
     Pessoa *bebe = NULL;
     if(!(gestacao) && (typeid(Homem) == typeid(amante)) && (idade <= 25 && idade >= 18) && (amante.getIdade() <= 25 && amante.getIdade() >= 18) )
@@ -22,7 +22,7 @@ Pessoa Mulher::engravidar(Pessoa &amante)
         } 
     }
     gestacao = !gestacao;
-    return *bebe;
+    return bebe;
 }
 
 std::string Mulher::toPrettyLine()
