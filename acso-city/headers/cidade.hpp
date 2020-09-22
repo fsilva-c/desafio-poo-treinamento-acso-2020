@@ -31,6 +31,7 @@ class Cidade
         
         void rotinas();
         bool incentivarReproducao(Cep pos);
+        bool checarContaminacao(Cep pos);
         void realocarPopulacao();
 
         unsigned n_mulheres_sadias();

@@ -17,6 +17,11 @@ bool Pessoa::vacinar()
     return false;
 }
 
+bool Pessoa::vuneravel()
+{
+    return (!saude.getDoente() && !saude.getVacinado());
+}
+
 std::string Pessoa::toPrettyLine()
 {
     return '[' + std::to_string(idade) + "][" + (saude.getDoente() ? 'I' : 'S') + "][" + (saude.getVacinado() ? 'V' : 'N') + ']';
