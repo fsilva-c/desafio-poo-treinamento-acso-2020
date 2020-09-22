@@ -10,7 +10,7 @@ class Mulher: public Pessoa
         bool gestacao;
 
     public :
-        Pessoa* engravidar(Pessoa &amante);
+        Pessoa* engravidar(Pessoa *amante);
         std::string toPrettyLine();
 
         Mulher();

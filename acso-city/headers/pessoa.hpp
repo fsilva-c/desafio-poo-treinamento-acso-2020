@@ -16,7 +16,7 @@ class Pessoa
         bool vacinar();
         std::string toPrettyLine(); 
 
-        virtual Pessoa* engravidar(Pessoa &amante);
+        virtual Pessoa* engravidar(Pessoa *amante);
 
         Pessoa();
         Pessoa(const Pessoa &__pessoa);

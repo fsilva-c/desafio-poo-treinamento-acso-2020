@@ -11,7 +11,6 @@
 
 bool Cidade::addPessoa(Pessoa *__pessoa)
 {
-    cout << "chegou";
 
     if(populacao_size == 40 || __pessoa == NULL)    return false;
 
@@ -29,7 +28,7 @@ void Cidade::popular(unsigned &__m_sadias, unsigned &__m_infectadas, unsigned &_
     for(unsigned i =0; i < __m_sadias; i++)
     {
         
-        std::string nome = "Maria";
+        std::string nome = "Maria Malafaia";
         unsigned idade = unsigned(rand() %20);
         Saude saude = Saude(false,false);
 
@@ -42,7 +41,7 @@ void Cidade::popular(unsigned &__m_sadias, unsigned &__m_infectadas, unsigned &_
     //Mulheres Infectadas
     for(unsigned i =0; i < __m_infectadas; i++)
     {
-        std::string nome = "Creusa";
+        std::string nome = "Creusa Edineia";
         unsigned idade = unsigned(rand() %20);
         Saude saude = Saude(true,false,data);
 
@@ -53,7 +52,7 @@ void Cidade::popular(unsigned &__m_sadias, unsigned &__m_infectadas, unsigned &_
     //Homens Sadios
     for(unsigned i =0; i < __h_sadios; i++)
     {
-        std::string nome = "Joao";
+        std::string nome = "Joao Augusto";
         unsigned idade = unsigned(rand() %20);
         Saude saude = Saude(false,false);
 
@@ -64,7 +63,7 @@ void Cidade::popular(unsigned &__m_sadias, unsigned &__m_infectadas, unsigned &_
     //Homens Infectados
     for(unsigned i =0; i < __h_infectados; i++)
     {
-        std::string nome = "Robson";
+        std::string nome = "Robson Quebradeira";
         unsigned idade = unsigned(rand() %20);
         Saude saude = Saude(true,false,data);
 
@@ -125,7 +124,7 @@ void Cidade::rotinas()
             //Incentivar Reproducao
             if(mapa[line][column] != NULL)
             {
-                /*
+                
                 if(typeid((*mapa[line][column])) == typeid(Mulher))
                 {
                     Cep mulher_cep;
@@ -133,24 +132,24 @@ void Cidade::rotinas()
                     mulher_cep.y = column;
                     incentivarReproducao(mulher_cep);
                 }
-                */
+                
 
                 //Vacinar Populacao
                 mapa[line][column]->vacinar();
-
-                //Verificar Obitos
-                
-                if(mapa[line][column]->morrer(data))
-                {
-                    //delete mapa[line][column];
-                    mapa[line][column] = NULL;
-                    populacao_size--;
-                }
 
                 //Checar Contaminacao
 
                 //Envelhecer Cidadaos
                 mapa[line][column]->setIdade(mapa[line][column]->getIdade()+1);
+
+                //Verificar Obitos
+                if(mapa[line][column]->morrer(data))
+                {
+                    cout << "Morreu com: " << mapa[line][column]->getIdade() << endl;
+                    delete mapa[line][column];
+                    mapa[line][column] = NULL;
+                    populacao_size--;
+                }
             }
         }
     }
@@ -168,21 +167,20 @@ bool Cidade::incentivarReproducao(Cep pos)
     Pessoa *bebe = NULL;
     if(amante.x +1 < N_LINHAS && mapa[amante.x+1][amante.y] != NULL)
     {
-        bebe = mapa[pos.x][pos.y]->engravidar(*mapa[amante.x+1][amante.y]);
+        bebe = mapa[pos.x][pos.y]->engravidar(mapa[amante.x+1][amante.y]);
 
-    }else if(amante.x -1 < N_LINHAS && mapa[amante.x-1][amante.y] != NULL)
+    }else if(int(amante.x -1) >= 0 && mapa[amante.x-1][amante.y] != NULL)
     {
-        bebe = mapa[pos.x][pos.y]->engravidar(*mapa[amante.x-1][amante.y]);
+        bebe = mapa[pos.x][pos.y]->engravidar(mapa[amante.x-1][amante.y]);
 
     }else if(amante.y +1 < N_COLUNAS && mapa[amante.x][amante.y+1] != NULL)
     {
-        bebe = mapa[pos.x][pos.y]->engravidar(*mapa[amante.x][amante.y+1]);
+        bebe = mapa[pos.x][pos.y]->engravidar(mapa[amante.x][amante.y+1]);
 
-    }else if(amante.y +1 < N_COLUNAS && mapa[amante.x][amante.y-1] != NULL)
+    }else if(int(amante.y -1) >= 0 && mapa[amante.x][amante.y-1] != NULL)
     {
-        bebe = mapa[pos.x][pos.y]->engravidar(*mapa[amante.x][amante.y-1]);
+        bebe = mapa[pos.x][pos.y]->engravidar(mapa[amante.x][amante.y-1]);
     }
-    //cout << "chevrolet" << endl;
     addPessoa(bebe);
     return (bebe != NULL);
 }
@@ -201,7 +199,7 @@ void Cidade::realocarPopulacao()
         destino.y = origem.y;
 
         origem.y = (origem.y +1) %N_COLUNAS;
-        origem.x = origem.y == N_COLUNAS -1 ? (origem.x +1) %N_LINHAS : origem.x;
+        origem.x = (destino.y == (N_COLUNAS -1)) ? (origem.x +1) %N_LINHAS : origem.x;
 
         mapa[(N_LINHAS -1)- destino.x][(N_COLUNAS -1)- destino.y] = mapa[(N_LINHAS -1)- origem.x][(N_COLUNAS -1)- origem.y];
 
@@ -316,6 +314,8 @@ Cidade::Cidade(const Cidade &__cidade)
 Cidade::Cidade(Data &__data)
 {
     data = __data;
+
+    populacao_size = 0;
 
     for(unsigned line=0; line < N_LINHAS; line++)
     {
