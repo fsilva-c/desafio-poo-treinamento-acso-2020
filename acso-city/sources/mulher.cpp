@@ -4,20 +4,20 @@
 #include <typeinfo>
 #include <string>
 
-Pessoa* Mulher::engravidar(Pessoa &amante)
+Pessoa* Mulher::engravidar(Pessoa *amante)
 {
     Pessoa *bebe = NULL;
-    if(!(gestacao) && (typeid(Homem) == typeid(amante)) && (idade <= 25 && idade >= 18) && (amante.getIdade() <= 25 && amante.getIdade() >= 18) )
+    if(!(gestacao) && (typeid(Homem) == typeid(*amante)) && (idade <= 25 && idade >= 18) && (amante->getIdade() <= 25 && amante->getIdade() >= 18) )
     {
-        std::cout << "In Love S2 !";
+        std::cout << "In Love S2 !" << std::endl;
 
-        if(idade >= amante.getIdade())
+        if(idade >= amante->getIdade())
         {
-            std::string bebe_nome = nome.substr(0,5) + amante.getNome().substr(5,10);
+            std::string bebe_nome = nome.substr(0,2) + amante->getNome().substr(2,5);
             bebe = new Mulher(bebe_nome,0,Saude(false,false));
 
         }else{
-            std::string bebe_nome = amante.getNome().substr(0,5) + nome.substr(0,5);
+            std::string bebe_nome = amante->getNome().substr(0,2) + nome.substr(2,5);
             bebe = new Homem(bebe_nome,0,Saude(false,false)); 
         } 
     }

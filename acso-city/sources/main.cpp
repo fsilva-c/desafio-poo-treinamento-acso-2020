@@ -5,6 +5,7 @@
 
 using std :: cout;
 using std :: string;
+using std :: cin;
 
 int main(){
     Data date0(1, 1, 2000);
@@ -14,19 +15,17 @@ int main(){
 
     Cidade acso_city(date0);
 
-    unsigned a = 10, b = 1, ano = 5;
-    unsigned &pop_1 = a, &pop_2 = b;
+    unsigned m_sadias,m_infectadas,h_sadios,h_infectados,ano;
+    cout << "N Mulheres Sadias: "; cin >> m_sadias;
+    cout << "N Mulheres Infectadas: "; cin >> m_infectadas;
+    cout << "N Homens Sadios: "; cin >> h_sadios;
+    cout << "N Homens Infectados: "; cin >> h_infectados;
 
-    acso_city.popular(pop_1, pop_2, pop_1, pop_2);
+    acso_city.popular(m_sadias,m_infectadas,h_sadios,h_infectados);
 
+    cout << "Tempo para projecao: ";cin >> ano;
+    acso_city.print();
     acso_city.projecao(ano);
 
-    cout << acso_city.n_mulheres_sadias() << endl;
-    cout << acso_city.n_mulheres_infectadas() << endl;
-    cout << acso_city.n_homens_sadios() << endl;
-    cout << acso_city.n_homens_infectados() << endl;
-    cout << acso_city.n_pessoas_sadias() << endl;
-    cout << acso_city.n_pessoas_infectadas() << endl;
-
-    acso_city.print();
+   
 }//END main

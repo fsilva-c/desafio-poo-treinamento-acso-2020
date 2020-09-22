@@ -4,7 +4,7 @@
 
 bool Pessoa::morrer(Data &__data)
 {
-    return (idade >= 30 || (saude.getData().datacrp(__data) >= -730 && saude.getDoente()));
+    return (idade >= 30 || (saude.getData().datacrp(__data) <= -730 && saude.getDoente()));
 }
 
 bool Pessoa::vacinar()
@@ -22,7 +22,7 @@ std::string Pessoa::toPrettyLine()
     return '[' + std::to_string(idade) + "][" + (saude.getDoente() ? 'I' : 'S') + "][" + (saude.getVacinado() ? 'V' : 'N') + ']';
 }
 
-Pessoa* Pessoa::engravidar(Pessoa &amante)
+Pessoa* Pessoa::engravidar(Pessoa *amante)
 {
     return NULL;
 }
