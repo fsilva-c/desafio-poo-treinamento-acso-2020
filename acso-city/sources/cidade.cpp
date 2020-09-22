@@ -12,7 +12,7 @@
 bool Cidade::addPessoa(Pessoa *__pessoa)
 {
 
-    if(populacao_size == 40 || __pessoa == NULL)    return false;
+    if(populacao_size == 100 || __pessoa == NULL)    return false;
 
     Cep endereco = gerarCep();
     mapa[endereco.x][endereco.y] = __pessoa;
@@ -79,7 +79,7 @@ Cep Cidade::gerarCep()
     Cep endereco;
     unsigned line,column;
 
-    if(populacao_size == 40)    return endereco;
+    if(populacao_size == 100)    return endereco;
 
     do{
         line = unsigned(rand() %10);
