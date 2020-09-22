@@ -1,9 +1,9 @@
-#include "../headers/data.hpp"
-#include "../headers/cidade.hpp"
-#include "../headers/saude.hpp"
-#include "../headers/pessoa.hpp"
-#include "../headers/mulher.hpp"
-#include "../headers/homem.hpp"
+#include "data.hpp"
+#include "cidade.hpp"
+#include "saude.hpp"
+#include "pessoa.hpp"
+#include "mulher.hpp"
+#include "homem.hpp"
 #include <ostream>
 #include <string>
 #include <typeinfo>
@@ -11,7 +11,8 @@
 
 bool Cidade::addPessoa(Pessoa *__pessoa)
 {
-    if(populacao_size == 40 || __pessoa == NULL)    return false;
+
+    if(populacao_size == 100 || __pessoa == NULL)    return false;
 
     Cep endereco = gerarCep();
     mapa[endereco.x][endereco.y] = __pessoa;
@@ -78,7 +79,7 @@ Cep Cidade::gerarCep()
     Cep endereco;
     unsigned line,column;
 
-    if(populacao_size == 40)    return endereco;
+    if(populacao_size == 100)    return endereco;
 
     do{
         line = unsigned(rand() %10);
@@ -123,13 +124,13 @@ void Cidade::rotinas()
             //Incentivar Reproducao
             if(mapa[line][column] != NULL)
             {
-                
-                if(typeid((*mapa[line][column])) == typeid(Mulher))
+                Cep cep_cidadao;
+                cep_cidadao.x = line;
+                cep_cidadao.y = column;
+
+                if(typeid((*mapa[cep_cidadao.x][cep_cidadao.y ])) == typeid(Mulher))
                 {
-                    Cep mulher_cep;
-                    mulher_cep.x = line;
-                    mulher_cep.y = column;
-                    incentivarReproducao(mulher_cep);
+                    incentivarReproducao(cep_cidadao);
                 }
                 
 
@@ -137,6 +138,7 @@ void Cidade::rotinas()
                 mapa[line][column]->vacinar();
 
                 //Checar Contaminacao
+                checarContaminacao(cep_cidadao);
 
                 //Envelhecer Cidadaos
                 mapa[line][column]->setIdade(mapa[line][column]->getIdade()+1);
@@ -183,6 +185,51 @@ bool Cidade::incentivarReproducao(Cep pos)
     addPessoa(bebe);
     return (bebe != NULL);
 }
+
+ bool Cidade::checarContaminacao(Cep pos)
+ {
+    Cep infectado;
+    infectado.x = pos.x;
+    infectado.y = pos.y;
+    Saude saude = Saude(true,false,data);
+
+    if(mapa[pos.x][pos.y]->vuneravel()){
+        if(infectado.x +1 < N_LINHAS && mapa[infectado.x+1][infectado.y] != NULL)
+        {
+            if(mapa[infectado.x+1][infectado.y]->getSaude().getDoente())
+            {
+                mapa[pos.x][pos.y]->setSaude(saude);
+                cout << "Infectado: " << mapa[pos.x][pos.y]->getIdade() << endl;
+                return true;
+            }
+        }if(int(infectado.x -1) >= 0 && mapa[infectado.x-1][infectado.y] != NULL)
+        {
+            if(mapa[infectado.x-1][infectado.y]->getSaude().getDoente())
+            {
+                mapa[pos.x][pos.y]->setSaude(saude);
+                cout << "Infectado: " << mapa[pos.x][pos.y]->getIdade() << endl;
+                return true;
+            }
+        }if(infectado.y +1 < N_COLUNAS && mapa[infectado.x][infectado.y+1] != NULL)
+        {
+            if(mapa[infectado.x][infectado.y+1]->getSaude().getDoente())
+            {
+                mapa[pos.x][pos.y]->setSaude(saude);
+                cout << "Infectado: " << mapa[pos.x][pos.y]->getIdade() << endl;
+                return true;
+            }
+        }if(int(infectado.y -1) >= 0 && mapa[infectado.x][infectado.y-1] != NULL)
+        {
+            if(mapa[infectado.x][infectado.y-1]->getSaude().getDoente())
+            {
+                mapa[pos.x][pos.y]->setSaude(saude);
+                cout << "Infectado: " << mapa[pos.x][pos.y]->getIdade() << endl;
+                return true;
+            }
+        }
+    }
+    return false;
+ }
 
 void Cidade::realocarPopulacao()
 {
@@ -285,7 +332,7 @@ void Cidade::print()
             if(mapa[line][column] != NULL)
                 cout << "{" << (*mapa[line][column]).toPrettyLine() << "} ";
             else 
-                cout << "{" << "[.][.][.]" << "} ";
+                cout << "{" << "[.][.][.][.]" << "} ";
         }
         cout << endl;
     }

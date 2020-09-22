@@ -1,4 +1,4 @@
-#include "../headers/pessoa.hpp"
+#include "pessoa.hpp"
 #include <string>
 #include <ostream>
 
@@ -15,6 +15,11 @@ bool Pessoa::vacinar()
         return true;
     }
     return false;
+}
+
+bool Pessoa::vuneravel()
+{
+    return (!saude.getDoente() && !saude.getVacinado());
 }
 
 std::string Pessoa::toPrettyLine()

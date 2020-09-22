@@ -1,4 +1,4 @@
-#include "../headers/homem.hpp"
+#include "homem.hpp"
 #include <string>
 
 std::string Homem::toPrettyLine()

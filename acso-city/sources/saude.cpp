@@ -1,4 +1,4 @@
-#include "../headers/saude.hpp"
+#include "saude.hpp"
 
 bool Saude::infectar(Data &__data)
 {
