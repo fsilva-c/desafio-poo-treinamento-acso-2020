@@ -11,8 +11,6 @@
 
 bool Cidade::addPessoa(Pessoa *__pessoa)
 {
-    cout << "chegou";
-
     if(populacao_size == 40 || __pessoa == NULL)    return false;
 
     Cep endereco = gerarCep();
@@ -140,12 +138,14 @@ void Cidade::rotinas()
 
                 //Verificar Obitos
                 
+                /*
                 if(mapa[line][column]->morrer(data))
                 {
                     //delete mapa[line][column];
                     mapa[line][column] = NULL;
                     populacao_size--;
                 }
+                */
 
                 //Checar Contaminacao
 
