@@ -1,6 +1,6 @@
-#include "../headers/mulher.hpp"
-#include "../headers/homem.hpp"
-#include "../headers/saude.hpp"
+#include "mulher.hpp"
+#include "homem.hpp"
+#include "saude.hpp"
 #include <typeinfo>
 #include <string>
 

@@ -1,9 +1,9 @@
-#include "../headers/data.hpp"
-#include "../headers/cidade.hpp"
-#include "../headers/saude.hpp"
-#include "../headers/pessoa.hpp"
-#include "../headers/mulher.hpp"
-#include "../headers/homem.hpp"
+#include "data.hpp"
+#include "cidade.hpp"
+#include "saude.hpp"
+#include "pessoa.hpp"
+#include "mulher.hpp"
+#include "homem.hpp"
 #include <ostream>
 #include <string>
 #include <typeinfo>

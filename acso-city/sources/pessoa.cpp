@@ -1,4 +1,4 @@
-#include "../headers/pessoa.hpp"
+#include "pessoa.hpp"
 #include <string>
 #include <ostream>
 
