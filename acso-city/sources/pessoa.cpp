@@ -6,12 +6,17 @@ bool Pessoa::morrer(Data &__data)
 {
     return (idade >= 30 || (saude.getData().datacrp(__data) <= -730 && saude.getDoente()));
 }
+bool Pessoa::envelhecer(){
+    idade+=1;
+    return true;
+}
 
 bool Pessoa::vacinar()
 {
-    if((idade <= 8 && idade >= 3) && !(saude.getDoente()))
+    if((idade <= 8 && idade >= 3) && !(saude.getDoente()) && !(saude.getVacinado()))
     {
         saude.setVacinado(true);
+        std::cout << "Vacinado: " << idade << std::endl;
         return true;
     }
     return false;
@@ -27,10 +32,6 @@ std::string Pessoa::toPrettyLine()
     return '[' + std::to_string(idade) + "][" + (saude.getDoente() ? 'I' : 'S') + "][" + (saude.getVacinado() ? 'V' : 'N') + ']';
 }
 
-Pessoa* Pessoa::engravidar(Pessoa *amante)
-{
-    return NULL;
-}
 
 Pessoa::Pessoa()
 {
@@ -73,3 +74,13 @@ Saude Pessoa::getSaude()
 {
     return saude;
 }
+
+//Metodos Virtuais
+
+Pessoa* Pessoa::engravidar(Pessoa *amante)
+{
+    amante = amante;
+    return NULL;
+}
+
+void Pessoa::emGestacao(){}

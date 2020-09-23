@@ -96,6 +96,7 @@ void Cidade::projecao(unsigned &anos)
 {
     while(anos > 0)
     {
+        cout << endl << "Data atual: " << data << endl << endl;
         rotinas();
         anos--;
     }
@@ -118,16 +119,20 @@ void Cidade::rotinas()
     data.setAno(data.getAno()+1);
 
     for(unsigned line=0; line < N_LINHAS; line++)
-    {
-        for(unsigned column=0; column < N_COLUNAS; column++)
-        {
-            //Incentivar Reproducao
+    {for(unsigned column=0; column < N_COLUNAS; column++)
+        {        
             if(mapa[line][column] != NULL)
             {
+
+
                 Cep cep_cidadao;
                 cep_cidadao.x = line;
                 cep_cidadao.y = column;
 
+                //Envelhecer Cidadaos
+                mapa[cep_cidadao.x][cep_cidadao.y]->envelhecer();
+
+                //Incentivar Reproducao
                 if(typeid((*mapa[cep_cidadao.x][cep_cidadao.y ])) == typeid(Mulher))
                 {
                     incentivarReproducao(cep_cidadao);
@@ -135,25 +140,22 @@ void Cidade::rotinas()
                 
 
                 //Vacinar Populacao
-                mapa[line][column]->vacinar();
+                mapa[cep_cidadao.x][column]->vacinar();
 
                 //Checar Contaminacao
                 checarContaminacao(cep_cidadao);
 
-                //Envelhecer Cidadaos
-                mapa[line][column]->setIdade(mapa[line][column]->getIdade()+1);
 
                 //Verificar Obitos
-                if(mapa[line][column]->morrer(data))
+                if(mapa[cep_cidadao.x][cep_cidadao.y]->morrer(data))
                 {
-                    cout << "Morreu com: " << mapa[line][column]->getIdade() << endl;
-                    delete mapa[line][column];
-                    mapa[line][column] = NULL;
+                    cout << "Morreu com: " << mapa[cep_cidadao.x][cep_cidadao.y]->getIdade() << endl;
+                    delete mapa[cep_cidadao.x][cep_cidadao.y];
+                    mapa[cep_cidadao.x][cep_cidadao.y] = NULL;
                     populacao_size--;
                 }
             }
-        }
-    }
+        }}
 
     //Realocar Populacao
     realocarPopulacao();
@@ -166,19 +168,20 @@ bool Cidade::incentivarReproducao(Cep pos)
     amante.x = pos.x;
     amante.y = pos.y;
     Pessoa *bebe = NULL;
+    mapa[pos.x][pos.y]->emGestacao();
     if(amante.x +1 < N_LINHAS && mapa[amante.x+1][amante.y] != NULL)
     {
         bebe = mapa[pos.x][pos.y]->engravidar(mapa[amante.x+1][amante.y]);
 
-    }else if(int(amante.x -1) >= 0 && mapa[amante.x-1][amante.y] != NULL)
+    }if(int(amante.x -1) >= 0 && mapa[amante.x-1][amante.y] != NULL)
     {
         bebe = mapa[pos.x][pos.y]->engravidar(mapa[amante.x-1][amante.y]);
 
-    }else if(amante.y +1 < N_COLUNAS && mapa[amante.x][amante.y+1] != NULL)
+    }if(amante.y +1 < N_COLUNAS && mapa[amante.x][amante.y+1] != NULL)
     {
         bebe = mapa[pos.x][pos.y]->engravidar(mapa[amante.x][amante.y+1]);
 
-    }else if(int(amante.y -1) >= 0 && mapa[amante.x][amante.y-1] != NULL)
+    }if(int(amante.y -1) >= 0 && mapa[amante.x][amante.y-1] != NULL)
     {
         bebe = mapa[pos.x][pos.y]->engravidar(mapa[amante.x][amante.y-1]);
     }

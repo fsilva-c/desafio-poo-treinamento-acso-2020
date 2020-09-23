@@ -13,11 +13,12 @@ class Pessoa
 
     public :
         bool morrer(Data &__data);
+        bool envelhecer();
         bool vacinar();
         bool vuneravel();
         virtual std::string toPrettyLine(); 
 
-        virtual Pessoa* engravidar(Pessoa *amante);
+       
 
         Pessoa();
         Pessoa(const Pessoa &__pessoa);
@@ -30,6 +31,9 @@ class Pessoa
         std::string getNome();
         unsigned getIdade();
         Saude getSaude();
+
+        virtual Pessoa* engravidar(Pessoa *amante);
+        virtual void emGestacao();
 
 
 };

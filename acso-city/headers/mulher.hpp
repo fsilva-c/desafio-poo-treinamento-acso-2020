@@ -11,13 +11,15 @@ class Mulher: public Pessoa
 
     public :
         Pessoa* engravidar(Pessoa *amante);
+        void emGestacao();
         std::string toPrettyLine();
 
         Mulher();
         Mulher(const Mulher &__mulher);
-        Mulher(string __nome, unsigned __idade, Saude __saude, bool __gestacao=false);
+        Mulher(string __nome, unsigned __idade, Saude __saude, bool = false);
 
         bool getGestacao();
+        void setGestacao(bool __gestacao);
 
 };
 

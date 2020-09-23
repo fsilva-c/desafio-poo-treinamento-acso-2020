@@ -9,7 +9,7 @@ Pessoa* Mulher::engravidar(Pessoa *amante)
     Pessoa *bebe = NULL;
     if(!(gestacao) && (typeid(Homem) == typeid(*amante)) && (idade <= 25 && idade >= 18) && (amante->getIdade() <= 25 && amante->getIdade() >= 18) )
     {
-        std::cout << "In Love S2 !" << std::endl;
+        std::cout << "Reproduziram: " << idade << "->" << amante->getIdade() << std::endl;
 
         if(idade >= amante->getIdade())
         {
@@ -19,10 +19,17 @@ Pessoa* Mulher::engravidar(Pessoa *amante)
         }else{
             std::string bebe_nome = amante->getNome().substr(0,2) + nome.substr(2,5);
             bebe = new Homem(bebe_nome,0,Saude(false,false)); 
-        } 
+        }
+        gestacao = true;
     }
-    gestacao = !gestacao;
+    
     return bebe;
+}
+
+void Mulher::emGestacao()
+{
+    if(gestacao)
+        gestacao = !gestacao;
 }
 
 std::string Mulher::toPrettyLine()
@@ -41,7 +48,7 @@ Pessoa(__mulher.nome,__mulher.idade,__mulher.saude)
     gestacao = __mulher.gestacao;
 }
 
-Mulher::Mulher(string __nome, unsigned __idade, Saude __saude, bool __gestacao/*=false*/) :
+Mulher::Mulher(string __nome, unsigned __idade, Saude __saude, bool __gestacao) : 
 Pessoa(__nome,__idade,__saude)
 {
     gestacao = __gestacao;
@@ -51,4 +58,9 @@ Pessoa(__nome,__idade,__saude)
 bool Mulher::getGestacao()
 {
     return gestacao;
+}
+
+void Mulher::setGestacao(bool __gestacao)
+{
+    gestacao = __gestacao;
 }
